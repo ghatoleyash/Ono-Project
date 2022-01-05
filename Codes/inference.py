@@ -82,7 +82,6 @@ with tf.Session(config=config) as sess:
                 psnr = sess.run(test_psnr_error,
                                 feed_dict={test_video_clips_tensor: video_clip[np.newaxis, ...]})
                 psnrs[i] = psnr
-                print('Know PSNRS: ', psnrs[i])
 
                 print('video = {} / {}, i = {} / {}, psnr = {:.6f}'.format(
                     video_name, num_videos, i, length, psnr))
@@ -146,7 +145,6 @@ with tf.Session(config=config) as sess:
 
             print('waiting for models...')
             evaluate.evaluate('compute_auc', psnr_dir)
-            #evaluate.evaluate('precision_recall_auc', psnr_dir)
             time.sleep(60)
     else:
         inference_func(snapshot_dir, dataset_name, evaluate_name)
