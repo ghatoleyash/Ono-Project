@@ -41,7 +41,7 @@ with tf.name_scope('dataset'):
 
 # define testing generator function and
 # in testing, only generator networks, there is no discriminator networks and flownet.
-with tf.variable_scope('generator', reuse=None):
+with tf.variable_scope('generator', reuse=tf.AUTO_REUSE):
     print('testing = {}'.format(tf.get_variable_scope().name))
     test_outputs = generator(test_inputs, layers=4, output_channel=3)
     test_psnr_error = psnr_error(gen_frames=test_outputs, gt_frames=test_gt)

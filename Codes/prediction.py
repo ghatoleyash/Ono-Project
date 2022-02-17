@@ -1,17 +1,5 @@
-import os 
-import numpy as np
-import cv2
-import pandas as pd
-import tensorflow as tf
-import os
+import sys
 import time
-import numpy as np
-import pickle
-import tensorflow as tf
-import os
-import time
-import numpy as np
-import pandas as pd
 import pickle
 from models import generator
 from utils import DataLoader, load, save, psnr_error
@@ -20,8 +8,29 @@ from utils import DataLoader, load, save, psnr_error
 from numpy import asarray
 from numpy import savetxt
 from numpy import loadtxt
+import warnings
+warnings.filterwarnings("ignore")
+warnings.simplefilter(action="ignore", category=FutureWarning)
+import tensorflow as tf
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+import os 
+import numpy as np
+import cv2
+import pandas as pd
 
-def inference():
+
+dataset_name = 'ped1'#const.DATASET
+test_folder = '../Data/ped1/testing/frames'#const.TEST_FOLDER
+DECIDABLE_IDX = 4
+num_his = 4#const.NUM_HIS
+height, width = 256, 256
+NORMALIZE = True
+
+test_psnr_error = 0
+test_outputs = 0
+test_video_clips_tensor = tf.compat.v1.placeholder(shape=[1, height, width, 3 * (num_his + 1)],dtype=tf.float32)
+
+def inference(test_video_clips_tensor, test_inputs, test_gt, test_outputs, test_psnr_error):
     config = tf.ConfigProto()
     config.gpu_options.allow_growth = True
     with tf.Session(config=config) as sess:
@@ -29,12 +38,13 @@ def inference():
         data_loader = DataLoader(test_folder, height, width)
         data_loader.videos['01']['frame'] = sorted(data_loader.videos['01']['frame'], key=lambda x: int(x.split("/")[-1].split(".")[0]))
         #print('Data Loader: ', data_loader.videos['01']['frame'])
+        
         # initialize weights
         sess.run(tf.global_variables_initializer())
         #print('Init global successfully!')
-
         # tf saver
         saver = tf.train.Saver(var_list=tf.global_variables(), max_to_keep=None)
+        
 
         restore_var = [v for v in tf.global_variables()]
         loader = tf.train.Saver(var_list=restore_var)
@@ -44,13 +54,15 @@ def inference():
 
         videos_info = data_loader.videos
         num_videos = len(videos_info.keys())
-
+        
+        #sys.exit(0)
+        
         length = 5
         
-        path = '/content/drive/MyDrive/IECLab/Experiments/Reconstruction Error/ano_pred_cvpr2018/Codes/PSNRS.csv'
+        path = '../Codes/PSNRS.csv'
         isExist = os.path.exists(path)
         
-        frames = os.listdir('/content/drive/MyDrive/IECLab/Experiments/Reconstruction Error/ano_pred_cvpr2018/Data/ped1/testing/frames/01/')
+        frames = os.listdir('../Data/ped1/testing/frames/01/')
         video_name = '01'
         start = num_his
         if isExist:
@@ -63,8 +75,7 @@ def inference():
 
         #for i in range(start, length):
         video_clip = data_loader.get_video_clips(video_name, start - num_his, start+1)
-        psnr = sess.run(test_psnr_error,
-                        feed_dict={test_video_clips_tensor: video_clip[np.newaxis, ...]})
+        psnr = sess.run(test_psnr_error,feed_dict={test_video_clips_tensor:video_clip[np.newaxis, ...]})
         psnrs.append(psnr)
 
         print('video = {} / {}, i = {} / {}, psnr = {:.6f}'.format(
@@ -97,3 +108,7 @@ def inference():
             return 'Anomaly' #print('Anomaly')
         else:
             return 'Normal'
+        
+        del sess
+           
+        
