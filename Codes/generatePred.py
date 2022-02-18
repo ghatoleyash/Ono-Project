@@ -21,7 +21,7 @@ from initialization import initialization
 from prediction import inference
 from GroundTruthPrediction import predictionvsGroundtruth
 
-"""
+
 returnValues = initialization()
 
 test_video_clips_tensor = returnValues[0]
@@ -38,7 +38,10 @@ if not isExist:
   os.makedirs(path2)
 
 
-cap= cv2.VideoCapture(path1+'video_02.mp4')
+print("Enter the video name with extension: (example.mp4)")
+videoName = input()
+
+cap= cv2.VideoCapture(path1+videoName)
 i=0
 flag = 0
 while(cap.isOpened()):
@@ -84,15 +87,23 @@ while(cap.isOpened()):
 
 cap.release()
 cv2.destroyAllWindows()
-"""
 
-print("Once finish with the annotations press ctrl+c ")
-while True:
-	try:
-		time.sleep(1)
-	except KeyboardInterrupt:
-		break
+
+#reading the PSNR.csv to add the Ground Truth Column
+pathCSV = '../Codes/PSNRS.csv'
+df = pd.read_csv(pathCSV)
+df['Ground Truth'] = ""
+df.to_csv(pathCSV)
+
+print("Press 1 Comparison with GroundTruth else 0")
+check = int(input())
+if check:
+	print("Once finish with the annotations press ctrl+c ")
+	while True:
+		try:
+			time.sleep(1)
+		except KeyboardInterrupt:
+			break
 		
-
-predictionvsGroundtruth()
+predictionvsGroundtruth(check)
 

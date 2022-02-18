@@ -22,7 +22,7 @@ from numpy import savetxt
 from numpy import loadtxt
 from prediction import inference
 
-def predictionvsGroundtruth():
+def predictionvsGroundtruth(check):
 	path = '../Data/ped1/testing/frames/Results/'
 	images = os.listdir(path)
 	path1 = '../Codes/PSNRS.csv'
@@ -35,13 +35,14 @@ def predictionvsGroundtruth():
 	label = 0
 	for image in images:
 	  image = cv2.imread(path+'/'+image)
-	  if df['Ground Truth'].iloc[count] == 0:
-	    # Getting the height and width of the image
-	    height = image.shape[0]
-	    width = image.shape[1]
-	    # Drawing the lines
-	    cv2.line(image, (0, 0), (width, height), (0, 0, 255), 5)
-	    cv2.line(image, (width, 0), (0, height), (0, 0, 255), 5)
+	  if check:
+		  if df['Ground Truth'].iloc[count] == 0:
+		    # Getting the height and width of the image
+		    height = image.shape[0]
+		    width = image.shape[1]
+		    # Drawing the lines
+		    cv2.line(image, (0, 0), (width, height), (0, 0, 255), 5)
+		    cv2.line(image, (width, 0), (0, height), (0, 0, 255), 5)
 
 	  img.append(image)
 	  count+=1
