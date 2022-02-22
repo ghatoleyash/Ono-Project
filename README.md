@@ -38,10 +38,29 @@ conda install -c library=specified_version
 - CUDA (10.0) install click [here](https://developer.nvidia.com/cuda-10.0-download-archive)
 - CUDNN (7.5) install click [here](https://developer.nvidia.com/cudnn)
 
-## Dataset download for testing
+## Running the current implementation
+- Download the trained models (There are the pretrained FlowNet and the trained models of the papers, such as ped1, ped2 and avenue). Please manually download pretrained models from [pretrains.tar.gz, avenue, ped1, ped2, flownet](http://101.32.75.151:8181/dataset/) and tar -xvf pretrains.tar.gz, and move pretrains into Codes/checkpoints folder.
+- add the video to the following path *'../Data/ped1/testing/'*
+- Run the following command (runs the code)
+```
+python generatePred.py
+```
+- Asks for *Enter the video name with extension: (example.mp4)*
+- Once, the predictions are completed code prompts *"Press 1 Comparison with GroundTruth else 0"*
+- If pressed *1*, an excel find named *PSNRS.csv* would be created within */Codes* folder add the frame by frame label in *Ground Truth* column there
+  - 0: Anomaly
+  - 1: Normal
+  - As the annotations are completed press *ctrl+c* to interrupt
+  - End video would be generated here named *../Data/ped1/testing/video_Result_02_Annotated_term.mp4*
+- Else, only model prediction video is generated here named *../Data/ped1/testing/video_Result_02_Annotated_term.mp4*
+
+
+
+## Running From Scratch
+### Dataset download for testing
 cd into Data folder of project and run the shell scripts [ped1.sh, ped2.sh, avenue.sh, shanghaitech.sh](http://101.32.75.151:8181/dataset/) under the Data folder. Please manually download all datasets from ped1.tar.gz, ped2.tar.gz, avenue.tar.gz and shanghaitech.tar.gz and tar each tar.gz file, and move them in to Data folder.
 
-## Downloading the pre-trained weights
+### Downloading the pre-trained weights
 - Download the trained models (There are the pretrained FlowNet and the trained models of the papers, such as ped1, ped2 and avenue). Please manually download pretrained models from [pretrains.tar.gz, avenue, ped1, ped2, flownet](http://101.32.75.151:8181/dataset/) and tar -xvf pretrains.tar.gz, and move pretrains into Codes/checkpoints folder.
 
 - Running the sript (as ped2 and avenue datasets for examples) and cd into Codes folder at first. Below example is for ped1 dataset
@@ -52,7 +71,7 @@ python inference.py  --dataset  ped1    \
                     --snapshot_dir    checkpoints/pretrains/ped1
 ```
 
-## Training from scratch 
+### Training from scratch 
 - Download the pretrained FlowNet at first and see above mentioned step 3.1
 - Set hyper-parameters The default hyper-parameters, such as $\lambda_{init}$, $\lambda_{gd}$, $\lambda_{op}$, $\lambda_{adv}$ and the learning rate of G, as well as D, are all initialized in training_hyper_params/hyper_params.ini.
 - Running script (as ped1 or avenue for instances) and cd into Codes folder at first.
@@ -70,7 +89,7 @@ python inference.py  --dataset  ped1    \
                      --gpu  1
 ```
 
-## Result
+### Result
 -  Model trained on 6,800 normal frames (specific to ped1 model and the dataset)
 -  While the model is tested on 7,076 frames out which 3,997 frames are anomalous and the remaining 3,079 are normal frames
 -  Below table shows the confusion matrix on the test set
@@ -80,7 +99,7 @@ python inference.py  --dataset  ped1    \
 - Threshold: 0.73 (based on experimental result) to distinguish the between anomalous and normal frame, if the score of the frame is below threshold value then it is tagged as anomalous frame else given as normal frame
 
 
-## Reference
+### Reference
 - Liu, Wen, et al. "Future frame prediction for anomaly detection–a new baseline." Proceedings of the IEEE conference on computer vision and pattern recognition. 2018.
 
 
