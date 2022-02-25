@@ -22,12 +22,23 @@ from numpy import savetxt
 from numpy import loadtxt
 from prediction import inference
 
-def predictionvsGroundtruth(check):
+def predictionvsGroundtruth(check, videoName):
 	path = '../Data/ped1/testing/frames/Results/'
-	images = os.listdir(path)
 	path1 = '../Codes/PSNRS.csv'
+	path2 = '../Data/ped1/testing/frames/'
+	videoResultDir = 'ResultVideo'
+	
+	filename = os.path.splitext(videoName)
+	videoName = filename[0]
+	ext = filename[1]
+	
+	images = os.listdir(path)
+	checkResultPath = os.path.join(path2, videoResultDir)
 	df = pd.read_csv(path1)
-
+	isExist = os.path.exists(checkResultPath)
+	if not isExist:
+		os.mkdir(checkResultPath)
+	
 	images = sorted(images, key=lambda x: int(x.split(".")[0]))
 	#print(images)
 	img=[]
@@ -49,7 +60,8 @@ def predictionvsGroundtruth(check):
 	    
 	height,width,layers=img[1].shape
 	#DIVX
-	video=cv2.VideoWriter('../Data/ped1/testing/video_Result_02_Annotated_term.mp4',cv2.VideoWriter_fourcc(*'mp4v'), 20,(width,height))
+	video=cv2.VideoWriter(checkResultPath+'/'+videoName+'Result'+'.mp4',cv2.VideoWriter_fourcc(*'mp4v'), 20,(width,height))
+	#video=cv2.VideoWriter('../Data/ped1/testing/video_Result_02_Annotated_term.mp4',cv2.VideoWriter_fourcc(*'mp4v'), 20,(width,height))
 
 	for j in range(len(img)):
 	  video.write(img[j])
