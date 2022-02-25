@@ -95,6 +95,7 @@ df = pd.read_csv(pathCSV)
 df['Ground Truth'] = ""
 df.to_csv(pathCSV)
 
+
 print("Press 1 Comparison with GroundTruth else 0")
 check = int(input())
 if check:
@@ -104,6 +105,6 @@ if check:
 			time.sleep(1)
 		except KeyboardInterrupt:
 			break
-		
-predictionvsGroundtruth(check)
+	
+predictionvsGroundtruth(check, videoName)
 
