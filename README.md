@@ -51,8 +51,8 @@ python generatePred.py
   - 0: Anomaly
   - 1: Normal
   - As the annotations are completed press *ctrl+c* to interrupt
-  - End video would be generated here named *../Data/ped1/testing/video_Result_02_Annotated_term.mp4*
-- Else, only model prediction video is generated here named *../Data/ped1/testing/video_Result_02_Annotated_term.mp4*
+  - End video would be generated here named *../Data/ped1/testing/frames/ResultVideo/exampleResult.mp4*
+- Else, only model prediction video is generated here named *../Data/ped1/testing/frames/ResultVideo/exampleResult.mp4*
 
 
 
