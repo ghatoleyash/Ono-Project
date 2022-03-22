@@ -4,6 +4,7 @@
 - Data generation takes video as an input and gives individual frames as an output
 - Functions to segregate the normal as well as anomalous frames which are mentioned in the [AnomalyLabel.xlsx](https://github.com/ghatoleyash/Ono-Project/blob/main/Codes/Data%20Generation/AnomalyLabel.xlsx) in the anomaly sheet
 - Moreover, it can skip the frames to be saved or in other words play the video in 2x, 3x,... and save the frames accordingly
+
 Click [here](https://github.com/ghatoleyash/Ono-Project/blob/main/Codes/Data%20Generation/videoToAnomaly.py) to check in-detail implementation and follow this file to run the code
 
 
