@@ -202,6 +202,9 @@ with tf.Session(config=config) as sess:
                 print('                 adversarial Loss : ({:.4f} * {:.4f} = {:.4f})'.format(_adv_loss, lam_adv, _adv_loss * lam_adv))
                 print('                 flownet     Loss : ({:.4f} * {:.4f} = {:.4f})'.format(_flow_loss, lam_flow, _flow_loss * lam_flow))
                 print('                 PSNR  Error      : ', _train_psnr)
+                print('Saving the model checkpoint')
+                save(saver, sess, snapshot_dir, _step)
+
             if _step % 100 == 0:
                 summary_writer.add_summary(_summaries, global_step=_step)
                 print('Save summaries...')
