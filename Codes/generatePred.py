@@ -12,7 +12,7 @@ import warnings
 warnings.filterwarnings("ignore")
 warnings.simplefilter(action="ignore", category=FutureWarning)
 import tensorflow as tf
-tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+tf.logging.set_verbosity(tf.logging.ERROR)
 import os 
 import numpy as np
 import cv2
@@ -30,12 +30,17 @@ test_gt = returnValues[2]
 test_outputs = returnValues[3]
 test_psnr_error = returnValues[4]
 
-path1 = '../Data/ped1/testing/'
-path2 = '../Data/ped1/testing/frames/01/'
-path3 = '../Data/ped1/testing/frames/Results/'
-isExist = os.path.exists(path2)
-if not isExist:
+dataset = 'cowdata'
+
+path1 = '../Data/'+dataset+'/testing/'
+path2 = '../Data/'+dataset+'/testing/frames/01/'
+path3 = '../Data/'+dataset+'/testing/frames/Results/'
+isExistpath2 = os.path.exists(path2)
+isExistpath3 = os.path.exists(path3)
+if not isExistpath2:
   os.makedirs(path2)
+if not isExistpath3:
+  os.makedirs(path3)
 
 
 print("Enter the video name with extension: (example.mp4)")
@@ -48,18 +53,18 @@ while(cap.isOpened()):
     ret, frame = cap.read()
     if ret == False:
         break
-    images = os.listdir('../Data/ped1/testing/frames/01')
+    images = os.listdir('../Data/'+dataset+'/testing/frames/01')
     print('Images: ', len(images))
     if len(images)>=5: #and (len(images)%5==0):
       #call the model
       result = inference(test_video_clips_tensor, test_inputs, test_gt, test_outputs, test_psnr_error)
-      #print('Result: ', result)
+      print('Result: ', result)
       
       if result=='Anomaly':
         start_point = (0, 0)
         end_point = (start_point[0]+len(frame[0]), start_point[1]+len(frame))
         color = (255, 255, 0)
-        thickness = 2
+        thickness = 20
         frame1 = frame.copy()
         frame1 = cv2.rectangle(frame1, start_point, end_point, color, thickness)
         cv2.imwrite(path3+str(name)+'.jpg',frame1)

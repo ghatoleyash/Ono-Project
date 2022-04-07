@@ -12,15 +12,15 @@ import warnings
 warnings.filterwarnings("ignore")
 warnings.simplefilter(action="ignore", category=FutureWarning)
 import tensorflow as tf
-tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+tf.logging.set_verbosity(tf.logging.ERROR)
 import os 
 import numpy as np
 import cv2
 import pandas as pd
 
 
-dataset_name = 'ped1'#const.DATASET
-test_folder = '../Data/ped1/testing/frames'#const.TEST_FOLDER
+dataset_name = 'cowdata'#const.DATASET
+test_folder = '../Data/'+dataset_name+'/testing/frames'#const.TEST_FOLDER
 DECIDABLE_IDX = 4
 num_his = 4#const.NUM_HIS
 height, width = 256, 256
@@ -28,7 +28,7 @@ NORMALIZE = True
 
 test_psnr_error = 0
 test_outputs = 0
-test_video_clips_tensor = tf.compat.v1.placeholder(shape=[1, height, width, 3 * (num_his + 1)],dtype=tf.float32)
+test_video_clips_tensor = tf.placeholder(shape=[1, height, width, 3 * (num_his + 1)],dtype=tf.float32)
 
 def inference(test_video_clips_tensor, test_inputs, test_gt, test_outputs, test_psnr_error):
     config = tf.ConfigProto()
@@ -49,7 +49,7 @@ def inference(test_video_clips_tensor, test_inputs, test_gt, test_outputs, test_
         restore_var = [v for v in tf.global_variables()]
         loader = tf.train.Saver(var_list=restore_var)
 
-        ckpt = 'checkpoints/pretrains/ped1'
+        ckpt = 'checkpoints/pretrains/'+dataset_name
         load(loader, sess, ckpt)
 
         videos_info = data_loader.videos
@@ -62,7 +62,7 @@ def inference(test_video_clips_tensor, test_inputs, test_gt, test_outputs, test_
         path = '../Codes/PSNRS.csv'
         isExist = os.path.exists(path)
         
-        frames = os.listdir('../Data/ped1/testing/frames/01/')
+        frames = os.listdir('../Data/'+dataset_name+'/testing/frames/01/')
         video_name = '01'
         start = num_his
         if isExist:

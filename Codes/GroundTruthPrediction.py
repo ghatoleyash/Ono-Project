@@ -23,9 +23,10 @@ from numpy import loadtxt
 from prediction import inference
 
 def predictionvsGroundtruth(check, videoName):
-	path = '../Data/ped1/testing/frames/Results/'
+	dataset = 'cowdata'
+	path = '../Data/'+dataset+'/testing/frames/Results/'
 	path1 = '../Codes/PSNRS.csv'
-	path2 = '../Data/ped1/testing/frames/'
+	path2 = '../Data/'+dataset+'/testing/frames/'
 	videoResultDir = 'ResultVideo'
 	
 	filename = os.path.splitext(videoName)
