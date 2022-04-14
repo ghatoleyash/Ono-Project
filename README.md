@@ -56,17 +56,17 @@ python generatePred.py
 
 
 
-## Guide over Current Implementation
-### [Data Generation](https://github.com/ghatoleyash/Ono-Project/blob/main/Codes/Data%20Generation/DataGeneration.md)
+## Guide over Current Implementation on Cow Data
+**[Data Generation](https://github.com/ghatoleyash/Ono-Project/blob/main/Codes/Data%20Generation/DataGeneration.md)
 
-### Illustration of Training Process
+**Illustration of Training Process
 <img src="https://github.com/ghatoleyash/Ono-Project/blob/main/Images/Training_Process.png" width=80% height=50%>
 
-### Testset performance
--  Model trained on 6,800 normal frames (specific to ped1 model and the dataset)
--  While the model is tested on 7,076 frames out which 3,997 frames are anomalous and the remaining 3,079 are normal frames
+**Testset performance
+-  Model trained on 46,713 normal frames
+-  While the model is tested on 1,250 frames out which 909 frames are anomalous and the remaining 341 are normal frames
 -  Below table shows the confusion matrix on the test set
-<img src="https://github.com/ghatoleyash/Ono-Project/blob/main/Images/Confusion_Matrix.png" width=60% height=50%>
+<img src="https://github.com/ghatoleyash/Ono-Project/blob/main/Images/Test_Results.png" width=60% height=50%>
 
 - Performance metrics: Accuracy:- 77%, Precision:- 77.56%, Recall:- 83.38%, F1:- 80.36%
 - Threshold: 0.73 (based on experimental result) to distinguish the between anomalous and normal frame, if the score of the frame is below threshold value then it is tagged as anomalous frame else given as normal frame
