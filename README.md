@@ -107,7 +107,7 @@ python inference.py  --dataset  ped1    \
                      --gpu  1
 ```
 
-### Result
+### Result on Toy Data
 -  Model trained on 6,800 normal frames (specific to ped1 model and the dataset)
 -  While the model is tested on 7,076 frames out which 3,997 frames are anomalous and the remaining 3,079 are normal frames
 -  Below table shows the confusion matrix on the test set
