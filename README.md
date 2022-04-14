@@ -68,7 +68,6 @@ python generatePred.py
 -  Below table shows the confusion matrix on the test set
 <img src="https://github.com/ghatoleyash/Ono-Project/blob/main/Images/Test_Results.png" width=60% height=50%>
 
-- Performance metrics: Accuracy:- 77%, Precision:- 77.56%, Recall:- 83.38%, F1:- 80.36%
 - Threshold: 0.73 (based on experimental result) to distinguish the between anomalous and normal frame, if the score of the frame is below threshold value then it is tagged as anomalous frame else given as normal frame
 
 
