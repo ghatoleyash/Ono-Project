@@ -57,12 +57,12 @@ python generatePred.py
 
 
 ## Guide over Current Implementation on Cow Data
-**[Data Generation](https://github.com/ghatoleyash/Ono-Project/blob/main/Codes/Data%20Generation/DataGeneration.md)
+**[Data Generation](https://github.com/ghatoleyash/Ono-Project/blob/main/Codes/Data%20Generation/DataGeneration.md)**
 
-**Illustration of Training Process
+**Illustration of Training Process**
 <img src="https://github.com/ghatoleyash/Ono-Project/blob/main/Images/Training_Process.png" width=80% height=50%>
 
-**Testset performance
+**Testset performance**
 -  Model trained on 46,713 normal frames
 -  While the model is tested on 1,250 frames out which 909 frames are anomalous and the remaining 341 are normal frames
 -  Below table shows the confusion matrix on the test set
