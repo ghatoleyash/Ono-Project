@@ -27,3 +27,17 @@ pip install pandas
 ```
 python videoToAnomaly.py
 ```
+
+
+#### Sample Frame-by-Frame Images 
+<img src="https://github.com/ghatoleyash/Ono-Project/blob/main/Images/00.jpg" width=80% height=50%>
+
+
+#### Data Segregation
+<img src="https://github.com/ghatoleyash/Ono-Project/blob/main/Images/00.jpg" width=80% height=50%>
+
+
+#### Data Segregation
+<img src="https://github.com/ghatoleyash/Ono-Project/blob/main/Images/Data_Segregation.png" width=80% height=50%>
+
+
