@@ -56,6 +56,24 @@ python generatePred.py
 
 
 
+## Guide over Current Implementation
+### [Data Generation](https://github.com/ghatoleyash/Ono-Project/blob/main/Codes/Data%20Generation/DataGeneration.md)
+
+### Illustration of Training Process
+<img src="https://github.com/ghatoleyash/Ono-Project/blob/main/Images/Training_Process.png" width=80% height=50%>
+
+### Testset performance
+-  Model trained on 6,800 normal frames (specific to ped1 model and the dataset)
+-  While the model is tested on 7,076 frames out which 3,997 frames are anomalous and the remaining 3,079 are normal frames
+-  Below table shows the confusion matrix on the test set
+<img src="https://github.com/ghatoleyash/Ono-Project/blob/main/Images/Confusion_Matrix.png" width=60% height=50%>
+
+- Performance metrics: Accuracy:- 77%, Precision:- 77.56%, Recall:- 83.38%, F1:- 80.36%
+- Threshold: 0.73 (based on experimental result) to distinguish the between anomalous and normal frame, if the score of the frame is below threshold value then it is tagged as anomalous frame else given as normal frame
+
+
+
+
 ## Running From Scratch
 ### Dataset download for testing
 cd into Data folder of project and run the shell scripts [ped1.sh, ped2.sh, avenue.sh, shanghaitech.sh](http://101.32.75.151:8181/dataset/) under the Data folder. Please manually download all datasets from ped1.tar.gz, ped2.tar.gz, avenue.tar.gz and shanghaitech.tar.gz and tar each tar.gz file, and move them in to Data folder.
