@@ -36,6 +36,7 @@ def predictionvsGroundtruth(check, videoName):
 	images = os.listdir(path)
 	checkResultPath = os.path.join(path2, videoResultDir)
 	df = pd.read_csv(path1)
+	columns_list = df.columns
 	isExist = os.path.exists(checkResultPath)
 	if not isExist:
 		os.mkdir(checkResultPath)
@@ -46,18 +47,21 @@ def predictionvsGroundtruth(check, videoName):
 	count = 0
 	label = 0
 	for image in images:
-	  image = cv2.imread(path+'/'+image)
-	  if check:
-		  if df['Ground Truth'].iloc[count] == 0:
-		    # Getting the height and width of the image
-		    height = image.shape[0]
-		    width = image.shape[1]
-		    # Drawing the lines
-		    cv2.line(image, (0, 0), (width, height), (0, 0, 255), 5)
-		    cv2.line(image, (width, 0), (0, height), (0, 0, 255), 5)
+		print("IMAGES: ", image)
+		image = cv2.imread(path+'/'+image)
+		if check:
+			print('CHECK HERE------------- : ', int(df.loc[df[columns_list[0]]==count, 'Ground Truth']), ' GET COUNT : ', count)
+			if df['Ground Truth'].iloc[count] == 0:
+				
+				# Getting the height and width of the image
+				height = image.shape[0]
+				width = image.shape[1]
+				# Drawing the lines
+				cv2.line(image, (0, 0), (width, height), (0, 0, 255), 5)
+				cv2.line(image, (width, 0), (0, height), (0, 0, 255), 5)
+		img.append(image)
+		count+=1
 
-	  img.append(image)
-	  count+=1
 	    
 	height,width,layers=img[1].shape
 	#DIVX
@@ -69,3 +73,5 @@ def predictionvsGroundtruth(check, videoName):
 
 	cv2.destroyAllWindows()
 	video.release()
+
+#predictionvsGroundtruth(1, '2021-09-28_07-45-25_10sec.mp4')

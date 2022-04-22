@@ -21,7 +21,10 @@ from initialization import initialization
 from prediction import inference
 from GroundTruthPrediction import predictionvsGroundtruth
 
+#Name of the dataset
+dataset = 'cowdata'
 
+#Initializes the model
 returnValues = initialization()
 
 test_video_clips_tensor = returnValues[0]
@@ -30,8 +33,7 @@ test_gt = returnValues[2]
 test_outputs = returnValues[3]
 test_psnr_error = returnValues[4]
 
-dataset = 'cowdata'
-
+#
 path1 = '../Data/'+dataset+'/testing/'
 path2 = '../Data/'+dataset+'/testing/frames/01/'
 path3 = '../Data/'+dataset+'/testing/frames/Results/'
@@ -87,6 +89,7 @@ while(cap.isOpened()):
         name = '0'+str(i)
       cv2.imwrite(path2+name+'.jpg',frame)
       cv2.imwrite(path3+name+'.jpg',frame)
+    print("-----------------------Name: ", name)
     i+=1
     flag = 0
 

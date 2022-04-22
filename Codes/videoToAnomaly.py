@@ -32,7 +32,7 @@ anomalycsvpath = '/Users/iec/Documents/Data/AnomalyCSV/AnomalyLabel.xlsx'
 #'/home/iec/Yash/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/AnomalyLabel.xlsx'
 
 #onedrive path
-AnomalyPath = '/Users/iec/Documents/Data/AnomalyFrames/'
+AnomalyPath = '/Users/iec/Desktop/Data/AnomalyFrames/'
 #'/home/iec/Yash/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/AnomalyFolder/'
 
 #onedrive path
@@ -40,7 +40,7 @@ path1 = '/Users/iec/Documents/Data/Video/'
 #'/home/iec/Yash/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/ManyCows/20210928AM/'
 
 #onedrive path
-path2 = '/Users/iec/Documents/Data/NormalFrames/'
+path2 = '/Users/iec/Desktop/Data/NormalFrames/'
 #'/home/iec/Yash/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/ManyCows/FrameData/'
 
 #path2 = '/content/drive/MyDrive/IECLab/Experiments/Reconstruction Error/ano_pred_cvpr2018/Data/ped1/testing/frames/01/'
@@ -51,16 +51,17 @@ path2 = '/Users/iec/Documents/Data/NormalFrames/'
 #Read anomaly csv file
 dfAnomaly = pd.read_excel(anomalycsvpath, sheet_name='Anomaly', engine='openpyxl')
 
-speed = 5 #how to sample every 2 frame (if given 5-every 5 frame is saved)
+speed = 5 #how to sample every 2 frame (if given 5 - every 5 frame is saved)
 
 videos = os.listdir(path1)
 videoSet = set()
+videoSet.add('2021-09-28_07-45-25_(new).mp4')
 #os.path.splitext
 
 #There are repeated videos for same time ending with "(1)""
-for video in videos:
-    if '(1)' not in video:
-        videoSet.add(video)
+# for video in videos:
+#     if '(1)' not in video:
+#         videoSet.add(video)
 #print(len(videos)-len(videoSet))
 
 for video in videoSet:
