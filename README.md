@@ -71,6 +71,8 @@ python generatePred.py
 - Threshold: 0.73 (based on experimental result) to distinguish the between anomalous and normal frame, if the score of the frame is below threshold value then it is tagged as anomalous frame else given as normal frame
 
 
+### Click [Results](https://onedrive.live.com/?id=A336B3E636895AB6%212713723&cid=A336B3E636895AB6&mid=7E3B04802D0B7F87%211895&mcid=7E3B04802D0B7F87&sd=1)
+
 
 
 ## Running From Scratch
