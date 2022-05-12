@@ -149,5 +149,3 @@ if args.psnr_dir:
     const.PSNR_DIR = get_dir(os.path.join('psnrs', const.SAVE_DIR + '_' + args.psnr_dir))
 else:
     const.PSNR_DIR = get_dir(os.path.join('psnrs', const.SAVE_DIR))
-
-

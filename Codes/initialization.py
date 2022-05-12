@@ -37,6 +37,7 @@ def initialization():
     with tf.name_scope('dataset'):
         test_video_clips_tensor = tf.placeholder(shape=[1, height, width, 3 * (num_his + 1)],
                                                 dtype=tf.float32)
+        
         test_inputs = test_video_clips_tensor[..., 0:num_his*3]
         test_gt = test_video_clips_tensor[..., -3:]
         print('test inputs = {}'.format(test_inputs))

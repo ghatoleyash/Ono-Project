@@ -3,7 +3,8 @@ import os
 import pandas as pd
 
 threshold = 0.73
-path = '/Users/iec/OneDrive/Ono Project/Anomaly Detection/Yash Ghatole (2021 Fall)/Cow Data/Results/ResultCSV/'
+path = '/Users/iec/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/Results/ResultCSV/'
+#'/Users/iec/OneDrive/Ono Project/Anomaly Detection/Yash Ghatole (2021 Fall)/Cow Data/Results/ResultCSV/'
 csvFiles = os.listdir(path)
 df = pd.DataFrame()
 
@@ -15,12 +16,17 @@ def checkThreshold(score, threshold):
 def ignoreDS_Store(lst):
     result = []
     for item in lst:
-        if ".DS_Store" not in item and '.mp4' not in item:
+        if (".DS_Store" in item) or (".mp4" in item) or ("PSNRS" in item) or (".py" in item):
+            continue
+        else:
+            print(item)
             result.append(item)
+    print("RESULTS -------- ", len(result))
     return result
 
 
 csvFiles = ignoreDS_Store(csvFiles)
+#print(csvFiles)
 for csv in csvFiles:
     #print("CSV FILES: ", csv)
     dfTemp = pd.read_csv(path+csv)
@@ -31,6 +37,9 @@ for csv in csvFiles:
 
 
 df['Ground Truth'] = df['Ground Truth'].astype('int')
+
+
+
 # print("Predicted: ")
 # print(df.groupby(['Predicted']).count())
 
