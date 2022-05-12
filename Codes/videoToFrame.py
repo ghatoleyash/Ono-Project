@@ -5,15 +5,17 @@ import pandas as pd
 import time
 
 
-path1 = '/home/iec/Yash/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/ManyCows/20210928AM/'
+path1 = '/Users/iec/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/Results/10sec_Results/10sec_RGB_Videos/'
+#'/home/iec/Yash/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/ManyCows/20210928AM/'
 #/content/drive/MyDrive/20210928AM/
-path2 = '/home/iec/Yash/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/ManyCows/FrameData/'
+path2 = '/Users/iec/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/Results/10sec_Results/10sec_BW_Frames/'
+#'/home/iec/Yash/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/ManyCows/FrameData/'
 #'/content/drive/MyDrive/Cow Frames/'
 #path2 = '/content/drive/MyDrive/IECLab/Experiments/Reconstruction Error/ano_pred_cvpr2018/Data/ped1/testing/frames/01/'
 #path3 = '/content/drive/MyDrive/IECLab/Experiments/Reconstruction Error/ano_pred_cvpr2018/Data/ped1/testing/frames/Results/'
 #/content/drive/MyDrive/20210928AM
 
-speed = 5 #how to sample every 2 frame (if given 5-every 5 frame is saved)
+speed = 1 #how to sample every 2 frame (if given 5-every 5 frame is saved)
 
 videos = os.listdir(path1)
 videoSet = set()
@@ -62,4 +64,4 @@ for video in videoSet:
   cap.release()
   cv2.destroyAllWindows()
   print("In Sleep waiting for upload")
-  time.sleep(10*60)
+  time.sleep(10)

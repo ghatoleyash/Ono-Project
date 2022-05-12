@@ -3,6 +3,8 @@ import os
 import pandas as pd
 
 path = '/Users/iec/Documents/Anomaly Detection/Ono-Project/Data/cowData/training/'
+#
+#'/Users/iec/Documents/Data/AnomalyFrames/'
 videoFolder = os.listdir(path)
 
 def ignoreDS_Store(lst):
@@ -14,11 +16,15 @@ def ignoreDS_Store(lst):
 videoFolder = ignoreDS_Store(videoFolder)
 
 countNormalFrames = 0
+countVideos = 0
 for i in videoFolder:
     frames = os.listdir(path+i)
     frames = ignoreDS_Store(frames)
     countNormalFrames+=len(frames)
+    if len(frames)!=0:
+        countVideos+=1
 
 print("-----------------")
 print(countNormalFrames)
+print(countNormalFrames/countVideos)
 print("-----------------")
