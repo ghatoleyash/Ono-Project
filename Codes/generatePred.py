@@ -12,7 +12,7 @@ import warnings
 warnings.filterwarnings("ignore")
 warnings.simplefilter(action="ignore", category=FutureWarning)
 import tensorflow as tf
-tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+tf.logging.set_verbosity(tf.logging.ERROR)
 import os 
 import numpy as np
 import cv2
@@ -22,6 +22,32 @@ from prediction import inference
 from GroundTruthPrediction import predictionvsGroundtruth
 
 
+def savingTheFrame(path, name, frame):
+  cv2.imwrite(path+str(name)+'.jpg',frame)
+
+def editingTheFrame(path, name, frame, result):
+  if result=='Anomaly':
+    start_point = (0, 0)
+    end_point = (start_point[0]+len(frame[0]), start_point[1]+len(frame))
+    color = (255, 255, 0)
+    thickness = 20
+    frame1 = frame.copy()
+    frame1 = cv2.rectangle(frame1, start_point, end_point, color, thickness)
+    savingTheFrame(path, name, frame1)
+    #cv2.imwrite(path+str(name)+'.jpg',frame1)
+    flag = 1
+  else:
+    savingTheFrame(path, name, frame)
+    #cv2.imwrite(path+str(name)+'.jpg',frame)
+  
+
+
+
+#Name of the dataset
+dataset = 'cowdata'
+
+#def generatePredictions(video_name):
+#Initializes the model
 returnValues = initialization()
 
 test_video_clips_tensor = returnValues[0]
@@ -30,63 +56,60 @@ test_gt = returnValues[2]
 test_outputs = returnValues[3]
 test_psnr_error = returnValues[4]
 
-path1 = '../Data/ped1/testing/'
-path2 = '../Data/ped1/testing/frames/01/'
-path3 = '../Data/ped1/testing/frames/Results/'
-isExist = os.path.exists(path2)
-if not isExist:
+#
+path1 = '../Data/'+dataset+'/testing/'
+path2 = '../Data/'+dataset+'/testing/frames/01/'
+path3 = '../Data/'+dataset+'/testing/frames/Results/'
+isExistpath2 = os.path.exists(path2)
+isExistpath3 = os.path.exists(path3)
+if not isExistpath2:
   os.makedirs(path2)
+if not isExistpath3:
+  os.makedirs(path3)
 
 
 print("Enter the video name with extension: (example.mp4)")
-videoName = input()
+videoName = input()#video_name
+print("Enter video name with extension: (example.mp4)--", videoName)
 
 cap= cv2.VideoCapture(path1+videoName)
 i=0
-flag = 0
+images = os.listdir('../Data/'+dataset+'/testing/frames/01')
 while(cap.isOpened()):
+    flag = 0
     ret, frame = cap.read()
     if ret == False:
         break
-    images = os.listdir('../Data/ped1/testing/frames/01')
-    print('Images: ', len(images))
-    if len(images)>=5: #and (len(images)%5==0):
+    
+    #print('Images: ', len(images))
+    name = i
+    if i<=9:
+      name = '0'+str(i)
+
+    if i>=5: #and (len(images)%5==0):
       #call the model
       result = inference(test_video_clips_tensor, test_inputs, test_gt, test_outputs, test_psnr_error)
-      #print('Result: ', result)
+      print('Result: ', result)
       
-      if result=='Anomaly':
-        start_point = (0, 0)
-        end_point = (start_point[0]+len(frame[0]), start_point[1]+len(frame))
-        color = (255, 255, 0)
-        thickness = 2
-        frame1 = frame.copy()
-        frame1 = cv2.rectangle(frame1, start_point, end_point, color, thickness)
-        cv2.imwrite(path3+str(name)+'.jpg',frame1)
-        flag = 1
-	
+      editingTheFrame(path3, name, frame, result)
+      editingTheFrame(path2, name, frame, "Blank")
 
-      #get the predictions
-      #Annotate and save it in different folder with sequential names
-      #save the next frame
-      name = i
-      if i<=9:
-        name = '0'+str(i)
-      cv2.imwrite(path2+str(name)+'.jpg',frame)
-      if not flag:
-        cv2.imwrite(path3+str(name)+'.jpg',frame)
-     
+      print("INDEX: ", i)
     else:
-      name = i
-      if i<=9:
-        name = '0'+str(i)
-      cv2.imwrite(path2+name+'.jpg',frame)
-      cv2.imwrite(path3+name+'.jpg',frame)
+      editingTheFrame(path2, name, frame, "Initial")
+      editingTheFrame(path3, name, frame, "Initial")
+      
+    images = os.listdir('../Data/'+dataset+'/testing/frames/01')
     i+=1
     flag = 0
-
+    # if i==10:
+    #   break
 cap.release()
 cv2.destroyAllWindows()
+
+
+# print("IMAGES LAST: ", len(images))
+# print("COUNTER LAST: ", i)
 
 
 #reading the PSNR.csv to add the Ground Truth Column
@@ -96,15 +119,19 @@ df['Ground Truth'] = ""
 df.to_csv(pathCSV)
 
 
-print("Press 1 Comparison with GroundTruth else 0")
-check = int(input())
+while True:
+  print("Press 1 Comparison with GroundTruth else 0")
+  check = input()
+  if check in ["0","1"]:
+    break
+check = int(check)
 if check:
-	print("Once finish with the annotations press ctrl+c ")
-	while True:
-		try:
-			time.sleep(1)
-		except KeyboardInterrupt:
-			break
-	
+  print("Once finish with the annotations press ctrl+c ")
+  while True:
+    try:
+      time.sleep(1)
+    except KeyboardInterrupt:
+      break
+  
 predictionvsGroundtruth(check, videoName)
 
