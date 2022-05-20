@@ -59,7 +59,7 @@ python generatePred.py
 ## Guide over Current Implementation on Cow Data
 **[Data Generation](https://github.com/ghatoleyash/Ono-Project/blob/main/Codes/Data%20Generation/DataGeneration.md)**
 
-**Illustration of Training Process**
+**Illustration of Testing Process**
 <img src="https://github.com/ghatoleyash/Ono-Project/blob/main/Images/Training_Process.png" width=80% height=50%>
 
 **Testset performance**
