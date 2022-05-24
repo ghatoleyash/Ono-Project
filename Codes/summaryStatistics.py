@@ -1,3 +1,10 @@
+"""
+Creating the summary statistics, 
+for a single video such as total number of frames,
+total number of normal frames, total number of
+anomalous frames within the video
+"""
+
 import pandas as pd
 import numpy as np
 import os

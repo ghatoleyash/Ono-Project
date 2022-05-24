@@ -6,7 +6,6 @@ import configparser
 def get_dir(directory):
     """
     get the directory, if no such directory, then make it.
-
     @param directory: The new directory.
     """
 

@@ -1,9 +1,15 @@
+"""
+Short code to annotate the frames within 
+PSNRS.csv file if the anomaly start and 
+end frame number is known without the
+manual adding of Ground Truth labels
+"""
+
 import pandas as pd
 
-
-#def GTAnnotate(rnge):
-#print("Entered the range: ", rnge)
-rangeInpt = input()#range#
+#Enter range 
+print("Enter Range (e.g: 5-10)")
+rangeInpt = input()
 start, end = rangeInpt.split("-")
 start, end = int(start), int(end)
 path = '../Codes/PSNRS.csv'

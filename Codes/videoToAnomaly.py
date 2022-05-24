@@ -1,3 +1,13 @@
+"""
+Segregating the video to Normal and 
+Anomalous frames into different folders
+
+Note: Keep aside Normal and Anomalous frames
+corresponding to the same video in order to 
+use this as the test set
+"""
+
+
 import os 
 import numpy as np
 import cv2
@@ -11,8 +21,6 @@ def anomalyFrameListFunc(fps, fileName, df, rows, columns):
     frameDict = collections.defaultdict(int)
     frameList = []
     for i in range(rows):
-        # print('START TIME')
-        # print(str(df.iloc[i]['start_time']).split(':'))
         mmStart, ssStart, t = str(df.iloc[i]['start_time']).split(':')
         mmEnd, ssEnd, t = str(df.iloc[i]['end_time']).split(':')
         mmStart, ssStart, t = int(mmStart), int(ssStart), int(t)
@@ -27,42 +35,30 @@ def anomalyFrameListFunc(fps, fileName, df, rows, columns):
 
 
 
-#onedrive path
-anomalycsvpath = '/Users/iec/Documents/Data/AnomalyCSV/AnomalyLabel.xlsx'
-#'/home/iec/Yash/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/AnomalyLabel.xlsx'
+#CSV Path containing frame numbers (from-to) anomaly starts
+anomalycsvpath = '/Users/iec/Documents/NewData/AnomalyCSV/AnomalyLabel.xlsx'
 
-#onedrive path
-AnomalyPath = '/Users/iec/Desktop/Data/AnomalyFrames/'
-#'/home/iec/Yash/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/AnomalyFolder/'
+#Path to save Anomalous Frames 
+AnomalyPath = '/Users/iec/Documents/NewData/AnomalyFrames/'
 
-#onedrive path
-path1 = '/Users/iec/Documents/Data/Video/'
-#'/home/iec/Yash/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/ManyCows/20210928AM/'
+#Path to retrieve the Video
+path1 = '/Users/iec/Documents/NewData/Video/'
 
-#onedrive path
-path2 = '/Users/iec/Desktop/Data/NormalFrames/'
-#'/home/iec/Yash/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/ManyCows/FrameData/'
-
-#path2 = '/content/drive/MyDrive/IECLab/Experiments/Reconstruction Error/ano_pred_cvpr2018/Data/ped1/testing/frames/01/'
-#path3 = '/content/drive/MyDrive/IECLab/Experiments/Reconstruction Error/ano_pred_cvpr2018/Data/ped1/testing/frames/Results/'
-#/content/drive/MyDrive/20210928AM
-
+#Path to save the Normal Frames
+path2 = '/Users/iec/Documents/NewData/NormalFrames/'
 
 #Read anomaly csv file
 dfAnomaly = pd.read_excel(anomalycsvpath, sheet_name='Anomaly', engine='openpyxl')
 
-speed = 5 #how to sample every 2 frame (if given 5 - every 5 frame is saved)
+speed = 1 #sample every 1 frame (if given 5 - every 5th frame is saved)
 
 videos = os.listdir(path1)
 videoSet = set()
-videoSet.add('2021-09-28_07-45-25_(new).mp4')
-#os.path.splitext
 
 #There are repeated videos for same time ending with "(1)""
-# for video in videos:
-#     if '(1)' not in video:
-#         videoSet.add(video)
-#print(len(videos)-len(videoSet))
+for video in videos:
+    if '(1)' not in video:
+        videoSet.add(video)
 
 for video in videoSet:
     print('Video Name', video)
@@ -82,8 +78,6 @@ for video in videoSet:
     rows, columns = dfTemp.shape
     if rows==0:
         continue
-    # print('DATAFRAME')
-    # print(dfTemp)
 
     #save anomalous video in different folder    
     #create folder with anomaly video
@@ -100,8 +94,7 @@ for video in videoSet:
         ret, frame = cap.read()
         if ret == False:
             break
-        images = os.listdir(framePath+'/')#'/content/drive/MyDrive/IECLab/Experiments/Reconstruction Error/ano_pred_cvpr2018/Data/ped1/testing/frames/01')
-        #print('Images: ', len(images))
+
         anomalousFrame = 0
         indx = 0
         for j in range(len(anomalyframeList)):
@@ -128,6 +121,7 @@ for video in videoSet:
                 cv2.imwrite(anomalyVideoNumber+'/'+name+'.jpg',grayImage)
 
         else:
+            #Saving normal frames in different folder
             if i%speed==0:
                 name = str(i)
                 if i<=9:
@@ -141,7 +135,6 @@ for video in videoSet:
 
     cap.release()
     cv2.destroyAllWindows()
-    # print("In Sleep waiting for upload")
-    # time.sleep(10*60)
+
 
 

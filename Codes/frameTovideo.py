@@ -1,5 +1,7 @@
-#Creating the video of frames that is present currently with the test set
-#call get_scores_label from evaluate.py into inference.py instead of compute_auc to get the output for the running frames
+"""
+Creating the video of frames 
+"""
+
 import os
 import cv2
 
@@ -10,11 +12,12 @@ def ignoreDS_Store(lst):
             result.append(item)
     return result
 
+#Path where frame exist
+path = '/Users/iec/Documents/Sampled Test Set/Frames/'
 
-path = '/Users/iec/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/Results/10sec_Results/10sec_BW_Frames/'
-#'/Users/iec/OneDrive/Ono Project/Anomaly Detection/Yash Ghatole (2021 Fall)/Cow Data/Data/AnomalyFrames/'
-path2 = '/Users/iec/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/Results/10sec_Results/10sec_BW_Videos/'
-#'/Users/iec/Documents/Anomaly Detection/Ono-Project/Data/cowData/testing/'
+#Path where Video will be stored from the above frames
+path2 = '/Users/iec/Documents/Sampled Test Set/Video/'
+
 totalFolders = os.listdir(path)
 totalFolders = ignoreDS_Store(totalFolders)
 
@@ -22,11 +25,7 @@ for folderName in totalFolders:
     videoName = folderName
     print(videoName)
     framePath = path+videoName+'/'
-    #videoNumbers = os.listdir(framePath)
-    #videoNumbers = ignoreDS_Store(videoNumbers)
 
-    #for videoNo in videoNumbers:
-    #videoNo = '0'
     images = os.listdir(framePath+'/')
     images = ignoreDS_Store(images)
     images = sorted(images, key=lambda x: int(x.split(".")[0]))

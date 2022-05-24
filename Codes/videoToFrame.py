@@ -1,39 +1,34 @@
+"""
+Convert the videos to their respective Frames
+"""
+
 import os 
 import numpy as np
 import cv2
 import pandas as pd
 import time
 
-
+#Path to the Videos
 path1 = '/Users/iec/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/Results/10sec_Results/10sec_RGB_Videos/'
-#'/home/iec/Yash/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/ManyCows/20210928AM/'
-#/content/drive/MyDrive/20210928AM/
+#Path to save the Frames from the Videos
 path2 = '/Users/iec/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/Results/10sec_Results/10sec_BW_Frames/'
-#'/home/iec/Yash/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/ManyCows/FrameData/'
-#'/content/drive/MyDrive/Cow Frames/'
-#path2 = '/content/drive/MyDrive/IECLab/Experiments/Reconstruction Error/ano_pred_cvpr2018/Data/ped1/testing/frames/01/'
-#path3 = '/content/drive/MyDrive/IECLab/Experiments/Reconstruction Error/ano_pred_cvpr2018/Data/ped1/testing/frames/Results/'
-#/content/drive/MyDrive/20210928AM
+
 
 speed = 1 #how to sample every 2 frame (if given 5-every 5 frame is saved)
 
 videos = os.listdir(path1)
 videoSet = set()
-#os.path.splitext
+
 #There are repeated videos for same time ending with "(1)""
 for video in videos:
   if '(1)' not in video:
     videoSet.add(video)
-#print(len(videos)-len(videoSet))
 
 for video in videoSet:
   print('Video Name', video)
   fNameExt = os.path.splitext(video)
   fileName = fNameExt[0]
   fileExt = fNameExt[1]
-  # print(fNameExt)
-  # print(fileName)
-  # print(fileExt)
 
   framePath = path2 + fileName
   print(framePath)
@@ -48,8 +43,7 @@ for video in videoSet:
       ret, frame = cap.read()
       if ret == False:
           break
-      images = os.listdir(framePath+'/')#'/content/drive/MyDrive/IECLab/Experiments/Reconstruction Error/ano_pred_cvpr2018/Data/ped1/testing/frames/01')
-      #print('Images: ', len(images))
+      images = os.listdir(framePath+'/')
       if i%speed==0:
         name = str(i)
         if i<=9:

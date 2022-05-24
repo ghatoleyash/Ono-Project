@@ -1,3 +1,10 @@
+"""
+Loads the Generator model,
+calculates the PSNR score in comparison
+with the Ground Truth Frame and returns 
+the decision for the input Frame
+"""
+
 import sys
 import time
 import pickle

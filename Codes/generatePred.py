@@ -1,3 +1,13 @@
+"""
+Generate Predictions for the test video
+by converting video to frame-by-frame 
+continuous images inference the decision 
+on the frame whether it is normal or anomalous
+, saves the resultant image and calls 
+for annotation of those images
+"""
+
+
 import sys
 import time
 import pickle
@@ -34,19 +44,16 @@ def editingTheFrame(path, name, frame, result):
     frame1 = frame.copy()
     frame1 = cv2.rectangle(frame1, start_point, end_point, color, thickness)
     savingTheFrame(path, name, frame1)
-    #cv2.imwrite(path+str(name)+'.jpg',frame1)
     flag = 1
   else:
     savingTheFrame(path, name, frame)
-    #cv2.imwrite(path+str(name)+'.jpg',frame)
   
-
 
 
 #Name of the dataset
 dataset = 'cowdata'
 
-#def generatePredictions(video_name):
+
 #Initializes the model
 returnValues = initialization()
 
@@ -56,7 +63,7 @@ test_gt = returnValues[2]
 test_outputs = returnValues[3]
 test_psnr_error = returnValues[4]
 
-#
+
 path1 = '../Data/'+dataset+'/testing/'
 path2 = '../Data/'+dataset+'/testing/frames/01/'
 path3 = '../Data/'+dataset+'/testing/frames/Results/'
@@ -89,12 +96,8 @@ while(cap.isOpened()):
     if i>=5: #and (len(images)%5==0):
       #call the model
       result = inference(test_video_clips_tensor, test_inputs, test_gt, test_outputs, test_psnr_error)
-      print('Result: ', result)
-      
       editingTheFrame(path3, name, frame, result)
       editingTheFrame(path2, name, frame, "Blank")
-
-      print("INDEX: ", i)
     else:
       editingTheFrame(path2, name, frame, "Initial")
       editingTheFrame(path3, name, frame, "Initial")
@@ -102,14 +105,8 @@ while(cap.isOpened()):
     images = os.listdir('../Data/'+dataset+'/testing/frames/01')
     i+=1
     flag = 0
-    # if i==10:
-    #   break
 cap.release()
 cv2.destroyAllWindows()
-
-
-# print("IMAGES LAST: ", len(images))
-# print("COUNTER LAST: ", i)
 
 
 #reading the PSNR.csv to add the Ground Truth Column

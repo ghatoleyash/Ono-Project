@@ -1,3 +1,10 @@
+"""
+Initializes the device environment
+such as GPU (if present) for the predictions
+loads the recent checkpoint of the trained-model
+and the shape of the dataset
+"""
+
 import time
 import pickle
 from models import generator

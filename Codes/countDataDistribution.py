@@ -1,10 +1,16 @@
+"""
+Count the Data Distribution for 
+total number of Normal Frames
+from the training data
+"""
+
+
 from sklearn.metrics import confusion_matrix, classification_report
 import os
 import pandas as pd
 
+#Path where the training data exists
 path = '/Users/iec/Documents/Anomaly Detection/Ono-Project/Data/cowData/training/'
-#
-#'/Users/iec/Documents/Data/AnomalyFrames/'
 videoFolder = os.listdir(path)
 
 def ignoreDS_Store(lst):

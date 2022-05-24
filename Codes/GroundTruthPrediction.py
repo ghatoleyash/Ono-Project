@@ -1,3 +1,12 @@
+"""
+Implementation to annotate the video 
+with ground truth(red cross) and 
+prediction results with blue edge
+
+Requires Ground Truth annotated PSNRS.csv to 
+create annotation frame-by-frame
+"""
+
 import os 
 import numpy as np
 import cv2
@@ -51,7 +60,6 @@ def predictionvsGroundtruth(check, videoName):
 		os.mkdir(checkResultPath)
 	
 	images = sorted(images, key=lambda x: int(x.split(".")[0]))
-	#print(images)
 	img=[]
 	count = 0
 	label = 0
@@ -83,14 +91,17 @@ def predictionvsGroundtruth(check, videoName):
 	cv2.destroyAllWindows()
 	video.release()
 
-	pathCSV = '/Users/iec/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/Results/ResultCSV/'
-	pathVideo = '/Users/iec/OneDrive/Yash Ghatole (2021 Fall)/Cow Data/Results/ResultVideo/'
+	"""
+	# CODE TO TRANSFER THE RESULTS FILE TO SOME OTHER FOLDER
+	pathCSV = 'path/to/DesiredCSVFolder'
+	pathVideo = 'path/to/DesiredVideo/Folder'
 	pathFrames = '../Data/cowData/testing/frames/'
 	os.replace('../Codes/PSNRS.csv', pathCSV+videoName+'Result.csv')
 	os.replace(pathFrames+'ResultVideo/'+videoName+'Result.mp4', pathVideo+videoName+'Result.mp4')
-	# os.rmdir(pathFrames)
+	"""
+	
 
-#predictionvsGroundtruth(1, '2021-09-28_07-45-25_(new)_0.mp4')
+
 
 #21	55-235
 #32 20-270

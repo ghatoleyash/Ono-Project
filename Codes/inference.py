@@ -1,3 +1,10 @@
+"""
+Loads the Generator model,
+calculates the PSNR score in comparison
+with the Ground Truth Frame and evaluation on the
+test set such as auc-roc 
+"""
+
 import tensorflow as tf
 import os
 import time
