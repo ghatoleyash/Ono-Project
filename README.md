@@ -64,15 +64,11 @@ python generatePred.py
 
 **Testset performance**
 -  Model trained on 46,713 normal frames
--  While the model is tested on 1,250 frames out which 909 frames are anomalous and the remaining 341 are normal frames
+-  While the model is tested on 638 frames out which 21 frames are anomalous and the remaining 617 are normal frames
 -  Below table shows the confusion matrix on the test set
-<img src="https://github.com/ghatoleyash/Ono-Project/blob/main/Images/Test_Results.png" width=60% height=50%>
+<img src="https://github.com/ghatoleyash/Video-Anomaly/blob/main/Images/Test_Set_Result.png" width=60% height=50%>
 
 - Threshold: 0.73 (based on experimental result) to distinguish the between anomalous and normal frame, if the score of the frame is below threshold value then it is tagged as anomalous frame else given as normal frame
-
-
-### Click [Results](https://onedrive.live.com/?id=A336B3E636895AB6%212713723&cid=A336B3E636895AB6&mid=7E3B04802D0B7F87%211895&mcid=7E3B04802D0B7F87&sd=1)
-
 
 
 ## Running From Scratch
